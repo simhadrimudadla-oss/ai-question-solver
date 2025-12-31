@@ -1,17 +1,16 @@
 import os
 import base64
 import streamlit as st
-from openai import OpenAI
+import openai
 from PIL import Image
 import io
 
 # ---------------- API KEY ----------------
-api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = os.getenv("OPENAI_API_KEY")
 if not api_key:
     st.error("OPENAI_API_KEY not found. Please set it in Command Prompt.")
     st.stop()
 
-client = OpenAI(api_key=api_key)
 
 # ---------------- UI ----------------
 st.set_page_config(page_title="AI Question Solver Bot", page_icon="🤖")
@@ -53,8 +52,8 @@ if st.button("Solve"):
 
             # ---------- TEXT MODE ----------
             if option == "Text Question":
-                response = client.chat.completions.create(
-                    model="gpt-4o-mini",
+                response = openai.ChatCompletions.create(
+                    model="gpt-3.5-turbo",
                     messages=[
                         {
                             "role": "system",
@@ -72,8 +71,8 @@ if st.button("Solve"):
                 image_bytes = uploaded_image.getvalue()
                 image_base64 = base64.b64encode(image_bytes).decode("utf-8")
 
-                response = client.chat.completions.create(
-                    model="gpt-4o-mini",
+                response = openai.ChatCompletions.create(
+                    model="gpt-3.5-turbo",
                     messages=[
                         {
                             "role": "system",
@@ -94,7 +93,7 @@ if st.button("Solve"):
                     ]
                 )
 
-        answer = response.choices[0].message.content
+        answer = response.choices[0].message["content"]
         st.subheader("AI Answer")
         st.write(answer)
 
@@ -102,3 +101,4 @@ if st.button("Solve"):
         st.error("❌ Unable to get response from AI.")
         st.info("This may happen if billing is not enabled or quota is exhausted.")
         st.code(str(e))
+
