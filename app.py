@@ -58,7 +58,7 @@ if st.button("Solve"):
 
             # ---------- TEXT MODE ----------
             if option == "Text Question":
-                response = openai.ChatCompletions.create(
+                response = openai.ChatCompletion.create(
                     model="gpt-3.5-turbo",
                     messages=[
                         {
@@ -77,7 +77,7 @@ if st.button("Solve"):
                 image_bytes = uploaded_image.getvalue()
                 image_base64 = base64.b64encode(image_bytes).decode("utf-8")
 
-                response = openai.ChatCompletions.create(
+                response = openai.ChatCompletion.create(
                     model="gpt-3.5-turbo",
                     messages=[
                         {
@@ -107,6 +107,7 @@ if st.button("Solve"):
         st.error("❌ Unable to get response from AI.")
         st.info("This may happen if billing is not enabled or quota is exhausted.")
         st.code(str(e))
+
 
 
 
