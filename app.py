@@ -8,6 +8,7 @@ import io
 # ---------------- API KEY ----------------
 api_key = os.getenv("OPENAI_API_KEY")
 openai.api_key = api_key
+
 if not api_key:
     st.error("OPENAI_API_KEY not found. Please set it in Command Prompt.")
     st.stop()
@@ -102,5 +103,6 @@ if st.button("Solve"):
         st.error("❌ Unable to get response from AI.")
         st.info("This may happen if billing is not enabled or quota is exhausted.")
         st.code(str(e))
+
 
 
