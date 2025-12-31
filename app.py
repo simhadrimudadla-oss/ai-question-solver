@@ -4,6 +4,10 @@ import streamlit as st
 import openai
 from PIL import Image
 import io
+import numpy as np
+import cv2
+import pytesseract
+
 
 # ---------------- API KEY ----------------
 api_key = os.getenv("OPENAI_API_KEY")
@@ -103,6 +107,7 @@ if st.button("Solve"):
         st.error("❌ Unable to get response from AI.")
         st.info("This may happen if billing is not enabled or quota is exhausted.")
         st.code(str(e))
+
 
 
 
