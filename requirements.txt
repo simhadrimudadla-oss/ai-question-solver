@@ -1,0 +1,6 @@
+streamlit
+openai==0.28.1
+pillow
+pytesseract
+opencv-python-headless
+numpy
